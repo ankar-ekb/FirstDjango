@@ -37,24 +37,20 @@ def about(request):
         """
     return HttpResponse(result)
 
-def get_item(reques, id):
+def get_item(request, id):
     for item in items:
         if item['id'] == id:
             result =  f"""
             <h1>Name: {item["name"]}</h1>
+            <a href='/items'> Назад </a>
             """
-            break
-        # else:
-        #     result =  f"""
-        #     <h1>Товар c id = {id} не найден</h1>
-        #     """
-        return HttpResponse(result)
+            return HttpResponse(result)
         
     return HttpResponseNotFound(f'<h1>Товар c id = {id} не найден</h1>')
 
 def items_list(request):
     result = "<h2>Goods list</h2><ol>"
     for item in items:
-        result += f"<li>{item['name']}</li>"
+        result += f"<li><a href='/item/{item['id']}'>{item['name']}</a></li>"
     result += '</ol>'
     return HttpResponse(result)
