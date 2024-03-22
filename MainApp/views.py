@@ -11,12 +11,13 @@ userdata = {
 }
 
 items = [
-   {"id": 1, "name": "Кроссовки abibas"},
-   {"id": 2, "name": "Куртка кожаная"},
-   {"id": 3, "name": "Coca-cola 1 литр"},
-   {"id": 4, "name": "Картофель фри"},
-   {"id": 5, "name": "Кепка"},
+   {"id": 1, "name": "Кроссовки abibas" ,"quantity":5},
+   {"id": 2, "name": "Куртка кожаная" ,"quantity":2},
+   {"id": 3, "name": "Coca-cola 1 литр" ,"quantity":12},
+   {"id": 4, "name": "Картофель фри" ,"quantity":0},
+   {"id": 5, "name": "Кепка" ,"quantity":124},
 ]
+
 
 
 # Create your views here.
@@ -45,17 +46,20 @@ def about(request):
 def get_item(request, id):
     for item in items:
         if item['id'] == id:
-            result =  f"""
-            <h1>Name: {item["name"]}</h1>
-            <a href='/items'> Назад </a>
-            """
-            return HttpResponse(result)
+            context = {
+                "item": item
+            }
+            return render(request, "items.html", context)
         
     return HttpResponseNotFound(f'<h1>Товар c id = {id} не найден</h1>')
 
 def items_list(request):
-    result = "<h2>Goods list</h2><ol>"
-    for item in items:
-        result += f"<li><a href='/item/{item['id']}'>{item['name']}</a></li>"
-    result += '</ol>'
-    return HttpResponse(result)
+    # result = "<h2>Goods list</h2><ol>"
+    # for item in items:
+    #     result += f"<li><a href='/item/{item['id']}'>{item['name']}</a></li>"
+    # result += '</ol>'
+    # return HttpResponse(result)
+    context = {
+        "items": items
+    }
+    return render(request, "items-list.html", context)
