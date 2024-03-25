@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home page</title>
-</head>
-<body>
-    <h2>Приветствую</h2>
+{% extends 'base.html' %}
 
-    Меня зовут: {{ name }} <br>
-    Мой адрес для связи: <i>{{ email }}</i><br>
+{% block content %}
+{% include 'inc-menu.html' %}
+<h1 class="demo">Приветствую</h1>
 
-    <a href = /items>Список товаров</a>
-</body>
-</html>
+<span style="color:blue">Меня зовут: {{ name }}.</span><br>
+Мой адрес для связи: <i>{{ email }}</i><br>
+
+<a href="{% url 'items-list'%}">Список товаров</a>
+{% endblock %}

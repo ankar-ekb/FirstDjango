@@ -1,18 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Items-list</title>
-</head>
-<body>
-    <h2>Список товаров</h2>
+{% extends 'base.html' %}
 
-    <ol>
-        {% for item in items %}
-            <li><a href='/item/{{ item.id }}'>{{ item.name }}</a>, {{ item.quantity }} шт.</li>
-        {% endfor %}
-    </ol>
+{% block style %}
+<style>
+    li {
+        display: inline-block;
+        border: 1px solid blue;
+        padding: 10px 20px;
+    }
 
-</body>
-</html>
+    a {
+        text-decoration: none;
+        color: green;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{% include 'inc-menu.html' %}
+<h2>Список товаров</h2>
+
+<ol>
+    {% for item in items %}
+    <li>
+        <b><a style="color:brown" , href="{% url 'item-detail' item.id %}"> {{ item.name }}</a></b>, {{ item.count }}
+        шт,
+        {{ item.description }}
+
+    </li>
+    {% endfor %}
+</ol>
+
+{% endblock %}

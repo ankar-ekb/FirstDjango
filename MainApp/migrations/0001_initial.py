@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('brand', models.CharField(max_length=100)),
                 ('count', models.PositiveIntegerField()),
+                ('description', models.PositiveIntegerField())
             ],
         ),
     ]
