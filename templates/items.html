@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Items</title>
 </head>
+
 <body>
-    
-    <h2>{{ item.name }}</h2>
+
+    <h3>{{ item.name }}</h3>
     <!-- {% if item.quantity %}
     <div>Количество: {{ item.quantity }}</div>
     {% else %}
     <div>Товар отсутствует</div>
     {% endif %}
     Другой вариант -->
-    <div>Количество: {{ item.quantity| default:"Товар отсутствует" }}</div>
+    <div>Бренд: {{ item.brand }}</div>
+    <div>Количество: {{ item.count| default:"Товар отсутствует" }}</div>
     <a href='/items'> Назад </a>
-    
+
 </body>
+
 </html>

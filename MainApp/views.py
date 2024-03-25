@@ -1,25 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render
-
-userdata = {
-    "name": "Иван",
-    "middle": "Petrovich",
-    "surname": "Ivanov",
-    "phone": "8-56-5345-4-53",
-    "email": "vasya@mail.ru"
-
-}
-
-items = [
-   {"id": 1, "name": "Кроссовки abibas" ,"quantity":5},
-   {"id": 2, "name": "Куртка кожаная" ,"quantity":2},
-   {"id": 3, "name": "Coca-cola 1 литр" ,"quantity":12},
-   {"id": 4, "name": "Картофель фри" ,"quantity":0},
-   {"id": 5, "name": "Кепка" ,"quantity":124},
-]
-
-
-
+from MainApp.models import Item
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 
 
@@ -34,6 +16,14 @@ def home(request):
     return render(request, "index.html", context)
 
 def about(request):
+    userdata = {
+    "name": "Иван",
+    "middle": "Petrovich",
+    "surname": "Ivanov",
+    "phone": "8-56-5345-4-53",
+    "email": "vasya@mail.ru"
+
+}
     result = f"""
         Имя: <b>{userdata["name"]}</b><br>
         Отчество: <b>{userdata["middle"]}</b><br>
@@ -44,14 +34,18 @@ def about(request):
     return HttpResponse(result)
 
 def get_item(request, id):
-    for item in items:
-        if item['id'] == id:
-            context = {
-                "item": item
-            }
-            return render(request, "items.html", context)
+    try:
+        item = Item.objects.get(id=id)
+    except ObjectDoesNotExist:
+        return HttpResponseNotFound(f'Товар c id = {id} не найден')
+    # items = Item.objects.all()
+    # for item in items:
+    #     if item.id == id:
+    context = {
+        "item": item
+    }
+    return render(request, "items.html", context)
         
-    return HttpResponseNotFound(f'<h1>Товар c id = {id} не найден</h1>')
 
 def items_list(request):
     # result = "<h2>Goods list</h2><ol>"
@@ -59,6 +53,7 @@ def items_list(request):
     #     result += f"<li><a href='/item/{item['id']}'>{item['name']}</a></li>"
     # result += '</ol>'
     # return HttpResponse(result)
+    items = Item.objects.all()
     context = {
         "items": items
     }
