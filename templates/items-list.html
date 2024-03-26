@@ -22,10 +22,8 @@
 <ol>
     {% for item in items %}
     <li>
-        <b><a style="color:brown" , href="{% url 'item-detail' item.id %}"> {{ item.name }}</a></b>, {{ item.count }}
-        шт,
-        {{ item.description }}
-
+        <b><a style="color:brown" , href="{% url 'item-detail' item.id %}"> {{ item.name }} {{ item.brand }}</a><br></b>
+        {{ item.count }}шт<br> {{ item.description }}
     </li>
     {% endfor %}
 </ol>
